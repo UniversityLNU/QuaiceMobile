@@ -1,11 +1,13 @@
 package com.quaice.hackathonapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.quaice.hackathonapp.adapters.FundraisingAdapter;
 import com.quaice.hackathonapp.dto.Fundraising.AllFundraisingResponse;
@@ -34,9 +36,13 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     AllFundraisingResponse allFundraisingResponse = response.body();
                     if (allFundraisingResponse != null) {
-                        // Modify this line to change how the fundraising information is displayed
                         FundraisingAdapter adapter = new FundraisingAdapter(allFundraisingResponse.getFundraisingList(), MainActivity.this);
                         fundraisingRecyclerView.setAdapter(adapter);
+
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+                        fundraisingRecyclerView.setLayoutManager(layoutManager);
+
+
                     }
                 } else {
                     // Handle the error
