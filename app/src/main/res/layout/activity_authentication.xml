@@ -8,7 +8,7 @@
     android:background="#151515">
 
     <RelativeLayout
-        android:visibility="visible"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/selector_layout"
@@ -76,7 +76,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:visibility="invisible"
+        android:visibility="visible"
         android:id="@+id/aunth_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
