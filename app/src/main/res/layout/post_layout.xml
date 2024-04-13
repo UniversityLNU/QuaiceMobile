@@ -17,6 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/big_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/darker_gray"/>
@@ -47,6 +48,7 @@
             app:cardCornerRadius="25dp"
             android:layout_margin="10dp">
             <ImageView
+                android:id="@+id/small_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/holo_red_dark"/>
@@ -63,6 +65,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/button_gradient">
                 <TextView
+                    android:id="@+id/winsteek"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="2 Days Streak"
@@ -76,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="nickname"
-            android:id="@+id/nickname"
+            android:id="@+id/creator_nickname"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_marginLeft="30dp"
@@ -87,9 +90,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="nickname"
-            android:id="@+id/title"
+            android:id="@+id/post_desc"
             android:textColor="@color/white"
-            android:layout_toRightOf="@+id/nickname"
+            android:layout_toRightOf="@+id/creator_nickname"
             android:layout_marginLeft="10dp"
             android:textSize="16dp"
             android:layout_below="@+id/main_card"

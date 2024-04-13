@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black">
 
     <LinearLayout
         android:layout_marginTop="10dp"
@@ -24,17 +25,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp">
             <TextView
+                android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Medical"
                 android:textColor="@color/white"/>
             <TextView
+                android:id="@+id/fond_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Come Back Alive"
                 android:textColor="@android:color/darker_gray"
                 android:layout_marginLeft="10dp"/>
             <TextView
+                android:id="@+id/time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2 mins ago"
@@ -43,6 +47,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/description"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,6 +56,7 @@
             android:textSize="20dp"/>
         
         <androidx.cardview.widget.CardView
+            android:id="@+id/open_review"
             android:layout_width="170dp"
             android:layout_height="50dp"
             app:cardCornerRadius="20dp"
