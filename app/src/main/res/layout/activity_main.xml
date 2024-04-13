@@ -8,6 +8,8 @@
     android:background="@color/background_color">
 
     <RelativeLayout
+        android:visibility="invisible"
+        android:id="@+id/foundation_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
@@ -147,7 +149,49 @@
             android:paddingTop="70dp"/>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"/>
 
+        <RelativeLayout
+            android:id="@+id/line_container"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_below="@id/icon"
+            android:layout_marginTop="20dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_gradient"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="It’s time to get a donut! "
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/line_container"
+            android:paddingTop="20dp"/>
+
+
+
+    </RelativeLayout>
 
 
 </RelativeLayout>
