@@ -2,7 +2,7 @@
     <string name="app_name">HackathonApp</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
-    <string name="api_url">https://db8e-88-155-207-26.ngrok-free.app</string>
+    <string name="api_url">https://ead4-88-155-207-26.ngrok-free.app</string>
 
     <string name="description_filler">We are raising 220 million hryvnias to reinforce 100 snipers for effective reconnaissance and hitting targets at a distance of more than 2 km.We are raising 220 million hryvnias snipers for effective  and hitting targets at a distanceWe are raising 220!</string>
 </resources>

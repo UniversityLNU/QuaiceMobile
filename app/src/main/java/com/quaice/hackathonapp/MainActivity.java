@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView fundraisingRecyclerView;
 
     public void showFundraising(){
+        fundLayout = findViewById(R.id.foundation_layout);
+        fundraisingRecyclerView = findViewById(R.id.main_recycler);
         fundLayout.setVisibility(View.VISIBLE);
         fundraisingService = new FundraisingService(this);
 

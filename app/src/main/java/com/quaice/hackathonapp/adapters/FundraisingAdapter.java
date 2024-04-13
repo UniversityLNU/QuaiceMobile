@@ -75,6 +75,7 @@ public class FundraisingAdapter extends RecyclerView.Adapter<FundraisingAdapter.
             fond_name = itemView.findViewById(R.id.fond_name);
             time_text = itemView.findViewById(R.id.time_text);
             description = itemView.findViewById(R.id.description);
+            open_review = itemView.findViewById(R.id.open_review);
         }
     }
 }
