@@ -134,4 +134,30 @@ public class MainActivity extends AppCompatActivity {
 
         showFundraising();
     }
+
+    // filterFundraisings
+    public void filterFundraisings(AllFundraisingResponse allFundraisingResponse, String title, String fundraisingType){
+        fundraisingService.getFundraisingsByTitleAndType(allFundraisingResponse, title, fundraisingType, new Callback<AllFundraisingResponse>() {
+            @Override
+            public void onResponse(Call<AllFundraisingResponse> call, Response<AllFundraisingResponse> response) {
+                if (response.isSuccessful()) {
+                    AllFundraisingResponse filteredResponse = response.body();
+                    if (filteredResponse != null) {
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+                        fundraisingRecyclerView.setLayoutManager(layoutManager);
+                        FundraisingAdapter adapter = new FundraisingAdapter(filteredResponse.getFundraisingList(), MainActivity.this);
+                        fundraisingRecyclerView.setAdapter(adapter);
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllFundraisingResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("Error", t.getMessage());
+            }
+        });
+    }
 }
