@@ -76,8 +76,11 @@ public class FundraisingResponse {
     }
 
     public enum FundraisingType {
-        Military("Military"),
-        Humanitarian("Humanitarian");
+        All("All"),
+        Medical("Medical"),
+        Clothes("Clothes"),
+        Equipment("Equipment"),
+        Army("Army");
 
         private final String type;
 

@@ -5,6 +5,7 @@ import java.util.List;
 public class AllFundraisingResponse {
     private List<FundraisingResponse> fundraisingList;
 
+
     public AllFundraisingResponse(List<FundraisingResponse> fundraisingResponses) {
         this.fundraisingList = fundraisingResponses;
     }
