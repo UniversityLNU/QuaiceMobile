@@ -96,6 +96,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if(response.isSuccessful() && response.body() != null) {
                         editor.putString("userID", response.body().getUserId());
+                        editor.commit();
                         Log.println(Log.INFO, "login", response.body().getUserId());
                         checkIfLoggined();
                     }
@@ -115,6 +116,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                         public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
                             if(response.isSuccessful() && response.body() != null) {
                                 editor.putString("userID", response.body().getUserId());
+                                editor.commit();
                                 Log.println(Log.INFO, "signUp", response.body().getUserId());
                                 checkIfLoggined();
                             }
@@ -179,6 +181,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     private void checkIfLoggined(){
         sharedPreferences = getSharedPreferences("AunthPref", Context.MODE_PRIVATE);
+
         editor = sharedPreferences.edit();
         if(!sharedPreferences.getString("userID", "").equals("")){
             startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
