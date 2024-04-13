@@ -3,6 +3,9 @@ package com.quaice.hackathonapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +30,8 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
+
+        checkIfLoggined();
 
         bind_views();
         change_visibility_of_layout(VISIBLE, INVISIBLE);
@@ -105,5 +110,12 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     private void change_some_state(View view, int state){
         view.setVisibility(state);
+    }
+
+    private void checkIfLoggined(){
+        SharedPreferences sharedPreferences = getSharedPreferences("AunthPref", Context.MODE_PRIVATE);
+        if(!sharedPreferences.getString("userID", "").equals("")){
+            startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+        }
     }
 }

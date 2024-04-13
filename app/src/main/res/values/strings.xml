@@ -2,4 +2,5 @@
     <string name="app_name">HackathonApp</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
+    <string name="api_url">https://faa7-195-160-235-15.ngrok-free.app</string>
 </resources>

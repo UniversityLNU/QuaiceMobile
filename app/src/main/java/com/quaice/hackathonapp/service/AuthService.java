@@ -1,5 +1,6 @@
 package com.quaice.hackathonapp.service;
 
+import com.quaice.hackathonapp.R;
 import com.quaice.hackathonapp.api.UserApi;
 import com.quaice.hackathonapp.dto.Auth.LoginRequest;
 import com.quaice.hackathonapp.dto.Auth.LoginResponse;
@@ -17,7 +18,7 @@ public class AuthService {
 
     public AuthService() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://your-api-url.com/") // replace with your actual API base URL
+                .baseUrl(String.valueOf(R.string.api_url)) // replace with your actual API base URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
