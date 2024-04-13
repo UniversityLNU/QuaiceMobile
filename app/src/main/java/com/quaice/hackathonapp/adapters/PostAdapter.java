@@ -13,12 +13,15 @@ import com.quaice.hackathonapp.R;
 import com.quaice.hackathonapp.dto.Post.PostResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
-    private ArrayList<PostResponse> mData;
+    private List<PostResponse> mData;
+    private Context context;
 
-    public PostAdapter(ArrayList<PostResponse> data) {
+    public PostAdapter(List<PostResponse> data, Context context) {
         this.mData = data;
+        this.context = context;
     }
 
     @Override
