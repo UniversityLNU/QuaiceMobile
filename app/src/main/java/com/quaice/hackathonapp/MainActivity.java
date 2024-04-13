@@ -1,6 +1,7 @@
 package com.quaice.hackathonapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.quaice.hackathonapp.adapters.FundraisingAdapter;
+import com.quaice.hackathonapp.adapters.PostAdapter;
 import com.quaice.hackathonapp.dto.Fundraising.AllFundraisingResponse;
 import com.quaice.hackathonapp.dto.Post.AllPostResponse;
 import com.quaice.hackathonapp.service.FundraisingService;
@@ -24,12 +26,34 @@ public class MainActivity extends AppCompatActivity {
     private FundraisingService fundraisingService;
     private PostService postService;
     //fundraising
-    private RelativeLayout fundLayout;
-    private RecyclerView fundraisingRecyclerView;
+    private RelativeLayout fundLayout, postLayot;
+    private RecyclerView fundraisingRecyclerView, postrecyclerView;
+
+    //menu_selector
+    private CardView fund_but, posts_but;
+
+    private void init_menu_selector(){
+        fund_but = findViewById(R.id.toolbar_fund);
+        posts_but = findViewById(R.id.toolbar_posts);
+
+        fund_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFundraising();
+            }
+        });
+
+        posts_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPosts();
+            }
+        });
+    }
+    
 
     public void showFundraising(){
-        fundLayout = findViewById(R.id.foundation_layout);
-        fundraisingRecyclerView = findViewById(R.id.fundraisingRecycler);
+        postLayot.setVisibility(View.GONE);
         fundLayout.setVisibility(View.VISIBLE);
         fundraisingService = new FundraisingService(this);
         postService = new PostService(this);
@@ -59,16 +83,23 @@ public class MainActivity extends AppCompatActivity {
     }
     //
     public void showPosts(){
+
+        postLayot.setVisibility(View.VISIBLE);
+        fundLayout.setVisibility(View.GONE);
+
+        postService = new PostService(this);
         postService.getAllPosts(new Callback<AllPostResponse>() {
             @Override
             public void onResponse(Call<AllPostResponse> call, Response<AllPostResponse> response) {
                 if (response.isSuccessful()) {
                     AllPostResponse allPostResponse = response.body();
                     if (allPostResponse != null) {
-                        Toast.makeText(MainActivity.this, "" +  allPostResponse.getPostList().size(), Toast.LENGTH_SHORT).show();
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+                        postrecyclerView.setLayoutManager(layoutManager);
+                        PostAdapter adapter = new PostAdapter(allPostResponse.getPostList(), MainActivity.this);
+                        postrecyclerView.setAdapter(adapter);
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -84,6 +115,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        init_menu_selector();
+
+        fundLayout = findViewById(R.id.foundation_layout);
+        postLayot = findViewById(R.id.main_layout);
+        fundraisingRecyclerView = findViewById(R.id.fundraisingRecycler);
+        postrecyclerView = findViewById(R.id.main_recycler);
+
         showFundraising();
     }
 
