@@ -181,6 +181,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     private void checkIfLoggined(){
         sharedPreferences = getSharedPreferences("AunthPref", Context.MODE_PRIVATE);
+
         editor = sharedPreferences.edit();
         if(!sharedPreferences.getString("userID", "").equals("")){
             startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
