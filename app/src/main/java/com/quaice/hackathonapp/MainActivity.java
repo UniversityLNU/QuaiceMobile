@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     //fundraising
     private RelativeLayout fundLayout;
     private RecyclerView fundraisingRecyclerView;
+    
 
     public void showFundraising(){
         fundLayout = findViewById(R.id.foundation_layout);
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     AllFundraisingResponse allFundraisingResponse = response.body();
                     if (allFundraisingResponse != null) {
-                        Toast.makeText(MainActivity.this, "" +  allFundraisingResponse.getFundraisingList().size(), Toast.LENGTH_SHORT).show();
                         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
                         fundraisingRecyclerView.setLayoutManager(layoutManager);
                         FundraisingAdapter adapter = new FundraisingAdapter(allFundraisingResponse.getFundraisingList(), MainActivity.this);
