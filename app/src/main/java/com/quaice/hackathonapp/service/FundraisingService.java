@@ -40,27 +40,14 @@ public class FundraisingService {
     }
 
     // filter by title and FundraisingType, user already existed getAllFundraisings call and then filter
-    public void getFundraisingsByTitleAndType(String title, String fundraisingType, Callback<AllFundraisingResponse> callback) {
-        Call<AllFundraisingResponse> call = fundraisingApi.getAllFundraisings();
-        call.enqueue(new Callback<AllFundraisingResponse>() {
-            @Override
-            public void onResponse(Call<AllFundraisingResponse> call, retrofit2.Response<AllFundraisingResponse> response) {
-                AllFundraisingResponse allFundraisingResponse = response.body();
-                AllFundraisingResponse filteredResponse = new AllFundraisingResponse(new LinkedList<>());
-                for (FundraisingResponse fundraisingResponse : allFundraisingResponse.getFundraisingList()) {
-                    if (fundraisingResponse.getTitle().contains(title) && (fundraisingType.equals("All") || fundraisingResponse.getFundraisingType().equals(fundraisingType)) ) {
-                        filteredResponse.getFundraisingList().add(fundraisingResponse);
-                    }
-                }
-                callback.onResponse(call, retrofit2.Response.success(filteredResponse));
+    public void getFundraisingsByTitleAndType(AllFundraisingResponse allFundraisingResponse, String title, String fundraisingType, Callback<AllFundraisingResponse> callback) {
+        AllFundraisingResponse filteredResponse = new AllFundraisingResponse(new LinkedList<>());
+        for (FundraisingResponse fundraisingResponse : allFundraisingResponse.getFundraisingList()) {
+            if (fundraisingResponse.getTitle().contains(title) && (fundraisingType.equals("All") || fundraisingResponse.getFundraisingType().equals(fundraisingType)) ) {
+                filteredResponse.getFundraisingList().add(fundraisingResponse);
             }
-
-            @Override
-            public void onFailure(Call<AllFundraisingResponse> call, Throwable t) {
-                callback.onFailure(call, t);
-            }
-        });
+        }
+        callback.onResponse(null, retrofit2.Response.success(filteredResponse));
     }
-
 
 }
