@@ -7,9 +7,9 @@ public class FundraisingResponse {
     private String fundraisingUrl;
     private String fundraisingCompany;
     private Double goal;
-    private FundraisingType fundraisingType;
+    private String fundraisingType;
 
-    public FundraisingResponse(String fundraisingId, String title, String description, String fundraisingUrl, String fundraisingCompany, Double goal, FundraisingType fundraisingType) {
+    public FundraisingResponse(String fundraisingId, String title, String description, String fundraisingUrl, String fundraisingCompany, Double goal, String fundraisingType) {
         this.fundraisingId = fundraisingId;
         this.title = title;
         this.description = description;
@@ -67,29 +67,11 @@ public class FundraisingResponse {
         this.goal = goal;
     }
 
-    public FundraisingType getFundraisingType() {
+    public String getFundraisingType() {
         return fundraisingType;
     }
 
-    public void setFundraisingType(FundraisingType fundraisingType) {
+    public void setFundraisingType(String fundraisingType) {
         this.fundraisingType = fundraisingType;
-    }
-
-    public enum FundraisingType {
-        All("All"),
-        Medical("Medical"),
-        Clothes("Clothes"),
-        Equipment("Equipment"),
-        Army("Army");
-
-        private final String type;
-
-        FundraisingType(String type) {
-            this.type = type;
-        }
-
-        public String getType() {
-            return this.type;
-        }
     }
 }
