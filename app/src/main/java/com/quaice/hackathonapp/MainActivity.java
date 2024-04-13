@@ -14,9 +14,12 @@ import android.widget.Toast;
 import com.quaice.hackathonapp.adapters.FundraisingAdapter;
 import com.quaice.hackathonapp.adapters.PostAdapter;
 import com.quaice.hackathonapp.dto.Fundraising.AllFundraisingResponse;
+import com.quaice.hackathonapp.dto.Fundraising.FundraisingResponse;
 import com.quaice.hackathonapp.dto.Post.AllPostResponse;
 import com.quaice.hackathonapp.service.FundraisingService;
 import com.quaice.hackathonapp.service.PostService;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     //menu_selector
     private CardView fund_but, posts_but;
+
+    private AllFundraisingResponse allFundraisingResponse;
 
     private void init_menu_selector(){
         fund_but = findViewById(R.id.toolbar_fund);
@@ -50,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private List<FundraisingResponse> search(String input){
+        fundraisingService.getFundraisingsByTitleAndType(input, allFundraisingResponse);
+    }
     
 
     public void showFundraising(){
@@ -62,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AllFundraisingResponse> call, Response<AllFundraisingResponse> response) {
                 if (response.isSuccessful()) {
-                    AllFundraisingResponse allFundraisingResponse = response.body();
+                    allFundraisingResponse = response.body();
                     if (allFundraisingResponse != null) {
                         LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
                         fundraisingRecyclerView.setLayoutManager(layoutManager);
