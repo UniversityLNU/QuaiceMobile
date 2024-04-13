@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import com.quaice.hackathonapp.adapters.FundraisingAdapter;
 import com.quaice.hackathonapp.dto.Fundraising.AllFundraisingResponse;
+import com.quaice.hackathonapp.dto.Post.AllPostResponse;
 import com.quaice.hackathonapp.service.FundraisingService;
+import com.quaice.hackathonapp.service.PostService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,6 +22,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private FundraisingService fundraisingService;
+    private PostService postService;
     //fundraising
     private RelativeLayout fundLayout;
     private RecyclerView fundraisingRecyclerView;
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         fundraisingRecyclerView = findViewById(R.id.fundraisingRecycler);
         fundLayout.setVisibility(View.VISIBLE);
         fundraisingService = new FundraisingService(this);
-
+        postService = new PostService(this);
         //getAllfund
         fundraisingService.getAllFundraisings(new Callback<AllFundraisingResponse>() {
             @Override
@@ -42,23 +45,42 @@ public class MainActivity extends AppCompatActivity {
                         fundraisingRecyclerView.setLayoutManager(layoutManager);
                         FundraisingAdapter adapter = new FundraisingAdapter(allFundraisingResponse.getFundraisingList(), MainActivity.this);
                         fundraisingRecyclerView.setAdapter(adapter);
-
-
-
-
                     }
                 } else {
-                    // Handle the error
+                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<AllFundraisingResponse> call, Throwable t) {
-                // Handle the error
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("Error", t.getMessage());
             }
         });
     }
+    //
+    public void showPosts(){
+        postService.getAllPosts(new Callback<AllPostResponse>() {
+            @Override
+            public void onResponse(Call<AllPostResponse> call, Response<AllPostResponse> response) {
+                if (response.isSuccessful()) {
+                    AllPostResponse allPostResponse = response.body();
+                    if (allPostResponse != null) {
+                        Toast.makeText(MainActivity.this, "" +  allPostResponse.getPostList().size(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AllPostResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("Error", t.getMessage());
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
