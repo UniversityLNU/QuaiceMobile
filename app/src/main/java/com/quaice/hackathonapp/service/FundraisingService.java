@@ -48,7 +48,7 @@ public class FundraisingService {
                 AllFundraisingResponse allFundraisingResponse = response.body();
                 AllFundraisingResponse filteredResponse = new AllFundraisingResponse(new LinkedList<>());
                 for (FundraisingResponse fundraisingResponse : allFundraisingResponse.getFundraisingList()) {
-                    if (fundraisingResponse.getTitle().equals(title) && fundraisingResponse.getFundraisingType().toString().equals(fundraisingType)) {
+                    if (fundraisingResponse.getTitle().equals(title) &&  fundraisingResponse.getFundraisingType().toString().equals(fundraisingType)) {
                         filteredResponse.getFundraisingList().add(fundraisingResponse);
                     }
                 }
