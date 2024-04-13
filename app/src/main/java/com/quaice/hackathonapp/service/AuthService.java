@@ -8,6 +8,8 @@ import com.quaice.hackathonapp.dto.Auth.LoginRequest;
 import com.quaice.hackathonapp.dto.Auth.LoginResponse;
 import com.quaice.hackathonapp.dto.Auth.SignUpRequest;
 import com.quaice.hackathonapp.dto.Auth.SignUpResponse;
+import com.quaice.hackathonapp.dto.User.UserInfoRequest;
+import com.quaice.hackathonapp.dto.User.UserInfoResponse;
 
 import java.io.IOException;
 
@@ -39,6 +41,12 @@ public class AuthService {
     public void signUp(String fullName, String email, String password, String phoneNumber, Callback<SignUpResponse> callback) {
         SignUpRequest signUpRequest = new SignUpRequest(fullName, email, password, phoneNumber);
         Call<SignUpResponse> call = userApi.registerUser(signUpRequest);
+        call.enqueue(callback);
+    }
+
+    public void getUserInfo(String token, Callback<UserInfoResponse> callback) {
+        UserInfoRequest userInfoRequest = new UserInfoRequest(token);
+        Call<UserInfoResponse> call = userApi.getUserInfo(userInfoRequest);
         call.enqueue(callback);
     }
 }
