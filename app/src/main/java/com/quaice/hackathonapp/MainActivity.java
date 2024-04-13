@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.quaice.hackathonapp.adapters.FundraisingAdapter;
 import com.quaice.hackathonapp.adapters.PostAdapter;
 import com.quaice.hackathonapp.dto.Fundraising.AllFundraisingResponse;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     //menu_selector
     private CardView fund_but, posts_but;
 
+    private TextInputEditText search;
+
     private AllFundraisingResponse allFundraisingResponse;
 
     private void init_menu_selector(){
@@ -56,9 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private List<FundraisingResponse> search(String input){
-        fundraisingService.getFundraisingsByTitleAndType(input, allFundraisingResponse);
-    }
+
     
 
     public void showFundraising(){
@@ -133,6 +136,25 @@ public class MainActivity extends AppCompatActivity {
         postrecyclerView = findViewById(R.id.main_recycler);
 
         showFundraising();
+
+        search = findViewById(R.id.search);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do something before the text changes (optional)
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newText = s.toString();
+                filterFundraisings(allFundraisingResponse, newText, "All");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // Do something after the text changes (optional)
+            }
+        });
     }
 
     // filterFundraisings

@@ -8,7 +8,7 @@
     android:background="@color/background_color">
 
     <RelativeLayout
-        android:visibility="invisible"
+        android:visibility="visible"
         android:id="@+id/foundation_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -34,7 +34,7 @@
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="25dp">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/full_name"
+                android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Search for"
