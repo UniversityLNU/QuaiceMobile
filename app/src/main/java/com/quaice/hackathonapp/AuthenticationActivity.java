@@ -12,6 +12,13 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.quaice.hackathonapp.dto.Auth.LoginResponse;
+import com.quaice.hackathonapp.dto.Auth.SignUpResponse;
+import com.quaice.hackathonapp.service.AuthService;
+
+import java.io.IOException;
+
 public class AuthenticationActivity extends AppCompatActivity {
     private RelativeLayout selector_layout, aunth_layout;
 
@@ -21,15 +28,24 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     private CardView full_name_card, email_card, phone_number_card, password_card;
 
-    public TextView aunth_button_text;
+    private TextView aunth_button_text;
+
+    private TextInputEditText full_name, email, password, phone_number;
+
+    private AuthService authService;
 
     private int VISIBLE = View.VISIBLE, INVISIBLE = View.INVISIBLE;
 
     private boolean is_loggin = false;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
+
+        authService = new AuthService(this);
 
         checkIfLoggined();
 
@@ -62,10 +78,34 @@ public class AuthenticationActivity extends AppCompatActivity {
         aunth_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                try {
+                    aunth();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
+    }
+
+    private void aunth() throws IOException {
+        if(is_loggin){
+            LoginResponse loginResponse = authService.login(email.getText().toString(), password.getText().toString());
+                if(!loginResponse.getUserId().equals("")){
+                    editor.putString("userID", loginResponse.getUserId());
+                    checkIfLoggined();
+                }
+        }else{
+            SignUpResponse signUpResponse = authService.signUp(full_name.getText().toString(),
+                    email.getText().toString(),
+                    password.getText().toString(),
+                    phone_number.getText().toString());
+
+            if(!signUpResponse.getUserId().equals("")){
+                editor.putString("userID", signUpResponse.getUserId());
+                checkIfLoggined();
+            }
+        }
     }
 
     private void bind_views(){
@@ -83,6 +123,11 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         aunth_button_text = findViewById(R.id.aunth_button);
         aunth_ok = findViewById(R.id.push_aunth);
+
+        full_name = findViewById(R.id.full_name);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        phone_number = findViewById(R.id.phone_number);
     }
 
     private void change_visibility_of_layout(int first_lay, int second_lay){
@@ -113,7 +158,8 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
     private void checkIfLoggined(){
-        SharedPreferences sharedPreferences = getSharedPreferences("AunthPref", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("AunthPref", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         if(!sharedPreferences.getString("userID", "").equals("")){
             startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
         }

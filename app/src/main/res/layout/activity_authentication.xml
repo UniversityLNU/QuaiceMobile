@@ -127,7 +127,7 @@
                 app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="25dp">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fullname"
+                    android:id="@+id/full_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Full name"

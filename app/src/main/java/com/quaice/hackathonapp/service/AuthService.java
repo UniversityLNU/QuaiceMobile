@@ -1,5 +1,7 @@
 package com.quaice.hackathonapp.service;
 
+import android.content.Context;
+
 import com.quaice.hackathonapp.R;
 import com.quaice.hackathonapp.api.UserApi;
 import com.quaice.hackathonapp.dto.Auth.LoginRequest;
@@ -16,9 +18,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AuthService {
     private UserApi userApi;
 
-    public AuthService() {
+    public AuthService(Context context) {
+        String url = context.getResources().getString(R.string.api_url);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(String.valueOf(R.string.api_url)) // replace with your actual API base URL
+                .baseUrl(url) // replace with your actual API base URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
