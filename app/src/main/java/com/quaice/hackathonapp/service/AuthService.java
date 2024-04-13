@@ -11,6 +11,8 @@ import com.quaice.hackathonapp.dto.Auth.SignUpResponse;
 
 import java.io.IOException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -28,23 +30,15 @@ public class AuthService {
         userApi = retrofit.create(UserApi.class);
     }
 
-    public LoginResponse login(String email, String password) throws IOException {
+    public void login(String email, String password, Callback<LoginResponse> callback) {
         LoginRequest loginRequest = new LoginRequest(email, password);
-        Response<LoginResponse> response = userApi.loginUser(loginRequest).execute();
-        if (response.isSuccessful()) {
-            return response.body();
-        } else {
-            throw new IOException(response.errorBody() != null ? response.errorBody().string() : "Unknown error");
-        }
+        Call<LoginResponse> call = userApi.loginUser(loginRequest);
+        call.enqueue(callback);
     }
 
-    public SignUpResponse signUp(String fullName, String email, String password, String phoneNumber) throws IOException {
+    public void signUp(String fullName, String email, String password, String phoneNumber, Callback<SignUpResponse> callback) {
         SignUpRequest signUpRequest = new SignUpRequest(fullName, email, password, phoneNumber);
-        Response<SignUpResponse> response = userApi.registerUser(signUpRequest).execute();
-        if (response.isSuccessful()) {
-            return response.body();
-        } else {
-            throw new IOException(response.errorBody() != null ? response.errorBody().string() : "Unknown error");
-        }
+        Call<SignUpResponse> call = userApi.registerUser(signUpRequest);
+        call.enqueue(callback);
     }
 }

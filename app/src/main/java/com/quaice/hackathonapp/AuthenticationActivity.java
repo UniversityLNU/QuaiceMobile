@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +19,10 @@ import com.quaice.hackathonapp.dto.Auth.SignUpResponse;
 import com.quaice.hackathonapp.service.AuthService;
 
 import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AuthenticationActivity extends AppCompatActivity {
     private RelativeLayout selector_layout, aunth_layout;
@@ -78,33 +83,48 @@ public class AuthenticationActivity extends AppCompatActivity {
         aunth_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
                     aunth();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
             }
         });
 
     }
 
-    private void aunth() throws IOException {
+    private void aunth() {
         if(is_loggin){
-            LoginResponse loginResponse = authService.login(email.getText().toString(), password.getText().toString());
-                if(!loginResponse.getUserId().equals("")){
-                    editor.putString("userID", loginResponse.getUserId());
-                    checkIfLoggined();
+            authService.login(email.getText().toString(), password.getText().toString(), new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if(response.isSuccessful() && response.body() != null) {
+                        editor.putString("userID", response.body().getUserId());
+                        Log.println(Log.INFO, "login", response.body().getUserId());
+                        checkIfLoggined();
+                    }
                 }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Log.println(Log.ERROR, "Aunth", t.getMessage());
+                }
+            });
         }else{
-            SignUpResponse signUpResponse = authService.signUp(full_name.getText().toString(),
+            authService.signUp(full_name.getText().toString(),
                     email.getText().toString(),
                     password.getText().toString(),
-                    phone_number.getText().toString());
+                    phone_number.getText().toString(), new Callback<SignUpResponse>() {
+                        @Override
+                        public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
+                            if(response.isSuccessful() && response.body() != null) {
+                                editor.putString("userID", response.body().getUserId());
+                                Log.println(Log.INFO, "signUp", response.body().getUserId());
+                                checkIfLoggined();
+                            }
+                        }
 
-            if(!signUpResponse.getUserId().equals("")){
-                editor.putString("userID", signUpResponse.getUserId());
-                checkIfLoggined();
-            }
+                        @Override
+                        public void onFailure(Call<SignUpResponse> call, Throwable t) {
+                            Log.println(Log.ERROR, "Aunth", t.getMessage());
+                        }
+                    });
         }
     }
 

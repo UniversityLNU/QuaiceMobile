@@ -3,15 +3,22 @@ import com.quaice.hackathonapp.dto.Auth.LoginRequest;
 import com.quaice.hackathonapp.dto.Auth.LoginResponse;
 import com.quaice.hackathonapp.dto.Auth.SignUpRequest;
 import com.quaice.hackathonapp.dto.Auth.SignUpResponse;
+import com.quaice.hackathonapp.dto.User.UserInfoRequest;
+import com.quaice.hackathonapp.dto.User.UserInfoResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface UserApi {
-    @POST("api/User/login")
+    @POST("/api/User/login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 
-    @POST("api/User/register")
+    @POST("/api/User/register")
     Call<SignUpResponse> registerUser(@Body SignUpRequest signUpRequest);
+    //  api/User/info
+    @GET("/api/User/info")
+    Call<UserInfoResponse> getUserInfo(@Body UserInfoRequest userInfoRequest);
+
 }
