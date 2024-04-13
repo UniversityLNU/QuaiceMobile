@@ -17,12 +17,13 @@ import com.quaice.hackathonapp.Review;
 import com.quaice.hackathonapp.dto.Fundraising.FundraisingResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FundraisingAdapter extends RecyclerView.Adapter<FundraisingAdapter.MyViewHolder> {
-    private ArrayList<FundraisingResponse> mData;
+    private List<FundraisingResponse> mData;
     private Context context;
 
-    public FundraisingAdapter(ArrayList<FundraisingResponse> data, Context context) {
+    public FundraisingAdapter(List<FundraisingResponse> data, Context context) {
         this.mData = data;
         this.context = context;
     }
