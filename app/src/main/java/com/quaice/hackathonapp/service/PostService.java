@@ -34,9 +34,9 @@ public class PostService {
         postApi = retrofit.create(PostApi.class);
     }
 
-    public void uploadUserPost(String userId, String description, List<String> attachedPhotos, Callback<CreatePostResponse> callback) {
+    public void uploadUserPost(String userId,String creatorFullName, String description, List<String> attachedPhotos, Callback<CreatePostResponse> callback) {
         long epochTime = System.currentTimeMillis();
-        CreatePostRequest post = new CreatePostRequest(userId,"CreatorFullName", epochTime, description,"fundrising" , attachedPhotos);
+        CreatePostRequest post = new CreatePostRequest(userId,creatorFullName, epochTime, description,"fundrising" , attachedPhotos);
         Call<CreatePostResponse> call = postApi.uploadUserPost(post);
         call.enqueue(callback);
     }

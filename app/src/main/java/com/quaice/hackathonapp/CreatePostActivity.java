@@ -23,6 +23,9 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.quaice.hackathonapp.dto.Post.CreatePostResponse;
+import com.quaice.hackathonapp.dto.User.UserInfoRequest;
+import com.quaice.hackathonapp.dto.User.UserInfoResponse;
+import com.quaice.hackathonapp.service.AuthService;
 import com.quaice.hackathonapp.service.PostService;
 
 import java.io.IOException;
@@ -49,6 +52,9 @@ public class CreatePostActivity extends AppCompatActivity {
 
     private PostService postService;
 
+    private AuthService authService;
+    private UserInfoResponse userInfoResponse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +62,16 @@ public class CreatePostActivity extends AppCompatActivity {
 
         edittext = findViewById(R.id.editText);
         publish = findViewById(R.id.publish);
+        authService = new AuthService(this);
+        String userId  = AuthenticationActivity.sharedPreferences.getString("userID", "");
+        showYourProfile(userId);
 
         publish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 List<String> bitmapList = new ArrayList<>();
                 bitmapList.add(postService.encodeToBase64(compressBitmapByFactor(imageBitmap, 4))); bitmapList.add(postService.encodeToBase64(compressBitmapByFactor(screenshotBitmap, 4)));
-                uploadUserPost(AuthenticationActivity.sharedPreferences.getString("userID", ""),
+                uploadUserPost(AuthenticationActivity.sharedPreferences.getString("userID", ""), userInfoResponse.getFullName(),
                         edittext.getText().toString(), bitmapList);
             }
         });
@@ -99,6 +108,26 @@ public class CreatePostActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+    public void showYourProfile(String userId){
+        authService.getUser(userId, new Callback<UserInfoResponse>() {
+            @Override
+            public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
+                if (response.isSuccessful()) {
+                    UserInfoResponse userInfoResponseM = response.body();
+                    if (userInfoResponse != null) {
+                        userInfoResponse = userInfoResponseM;
+                    }
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserInfoResponse> call, Throwable t) {
+                //Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("Error", t.getMessage());
+            }
+        });
     }
 
     private void openCamera() {
@@ -165,8 +194,8 @@ public class CreatePostActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_SELECT_IMAGE);
     }
 
-    public void uploadUserPost(String userId, String description, List<String> attachedPhotos){
-        postService.uploadUserPost(userId, description, attachedPhotos, new Callback<CreatePostResponse>() {
+    public void uploadUserPost(String userId, String creatorFullName, String description, List<String> attachedPhotos){
+        postService.uploadUserPost(userId, creatorFullName, description, attachedPhotos, new Callback<CreatePostResponse>() {
             @Override
             public void onResponse(Call<CreatePostResponse> call, Response<CreatePostResponse> response) {
                 if (response.isSuccessful()) {
