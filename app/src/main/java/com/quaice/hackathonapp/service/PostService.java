@@ -35,7 +35,8 @@ public class PostService {
     }
 
     public void uploadUserPost(String userId, String description, List<String> attachedPhotos, Callback<CreatePostResponse> callback) {
-        CreatePostRequest post = new CreatePostRequest(userId, description, attachedPhotos);
+        long epochTime = System.currentTimeMillis();
+        CreatePostRequest post = new CreatePostRequest(userId,"CreatorFullName", epochTime, description,"fundrising" , attachedPhotos);
         Call<CreatePostResponse> call = postApi.uploadUserPost(post);
         call.enqueue(callback);
     }
