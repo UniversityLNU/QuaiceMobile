@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the alarm to start immediately and repeat every 10 seconds
         long triggerAtMillis = System.currentTimeMillis();
-        long intervalMillis = 5 * 100; // 10 seconds
+        long intervalMillis = 5 * 10; // 10 seconds
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, alarmIntent);
