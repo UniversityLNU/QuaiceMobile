@@ -2,19 +2,13 @@ package com.quaice.hackathonapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.quaice.hackathonapp.dto.ServerResponse;
-import com.quaice.hackathonapp.dto.Shop.AllShopItemResponse;
 import com.quaice.hackathonapp.dto.Shop.BuyShopItemRequest;
 import com.quaice.hackathonapp.dto.Shop.ShopItemResponse;
 import com.quaice.hackathonapp.dto.User.UserInfoResponse;
@@ -79,7 +73,7 @@ public class ShopReview extends AppCompatActivity {
         buy_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buyItemInShop(item.getShopItemId());
+                buyItemInShop(item.getItemId());
             }
         });
 
