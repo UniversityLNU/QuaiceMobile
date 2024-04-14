@@ -1,16 +1,19 @@
 package com.quaice.hackathonapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quaice.hackathonapp.R;
+import com.quaice.hackathonapp.ShopReview;
 import com.quaice.hackathonapp.dto.Post.PostResponse;
 import com.quaice.hackathonapp.dto.Shop.ShopItemResponse;
 import com.quaice.hackathonapp.service.PostService;
@@ -51,6 +54,14 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
             holder.price.setText(item.getPrice().toString());
             holder.image.setImageURI(Uri.parse(item.getItemImage()));
 
+            holder.openReview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ShopReview.item = item;
+                    context.startActivity(new Intent(context, ShopReview.class));
+                }
+            });
+
             // Set item views based on your views and data model
             //holder.textView.setText(item);
         }
@@ -64,6 +75,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
             public TextView title, description, price;
             private ImageView image;
 
+            private RelativeLayout openReview;
+
 
             public MyViewHolder(View itemView) {
                 super(itemView);
@@ -71,6 +84,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
                 description = itemView.findViewById(R.id.description);
                 price = itemView.findViewById(R.id.price);
                 image = itemView.findViewById(R.id.image);
+                openReview = itemView.findViewById(R.id.open);
 
             }
         }

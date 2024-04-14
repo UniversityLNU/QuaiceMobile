@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:id="@+id/open"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="250dp"
         android:layout_marginLeft="32dp"
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
@@ -51,13 +51,13 @@
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
-            android:layout_below="@+id/lin_lay"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/open_review"
             android:layout_width="170dp"
             android:layout_height="50dp"
             app:cardCornerRadius="25dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_gravity="center">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,10 +89,11 @@
         </androidx.cardview.widget.CardView>
 
         <ImageView
+            android:layout_below="@+id/open_review"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/third_white"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="10dp"/>
 
     </RelativeLayout>
 
