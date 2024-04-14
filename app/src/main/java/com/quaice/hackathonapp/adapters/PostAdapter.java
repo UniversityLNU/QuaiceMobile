@@ -10,7 +10,9 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quaice.hackathonapp.R;
+import com.quaice.hackathonapp.dto.Post.PostRequest;
 import com.quaice.hackathonapp.dto.Post.PostResponse;
+import com.quaice.hackathonapp.service.PostService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +21,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     private List<PostResponse> mData;
     private Context context;
 
+    private PostService postService;
+
     public PostAdapter(List<PostResponse> data, Context context) {
         this.mData = data;
         this.context = context;
+        postService = new PostService(context);
     }
 
     @Override
@@ -39,8 +44,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // Get the data model based on position
-        //String item = mData.get(position);
+        PostResponse item = mData.get(position);
 
+        holder.creator_nickname.setText(item.getCreatorFullName());
+        holder.post_desc.setText(item.getDescription());
+
+        holder.big_img.setImageBitmap(postService.decodeBase64(item.getPhotoLinks().get(0)));
+        holder.small_img.setImageBitmap(postService.decodeBase64(item.getPhotoLinks().get(1)));
         // Set item views based on your views and data model
         //holder.textView.setText(item);
     }

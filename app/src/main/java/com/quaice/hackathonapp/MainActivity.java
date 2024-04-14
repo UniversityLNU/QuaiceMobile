@@ -89,9 +89,7 @@ public class MainActivity extends AppCompatActivity {
         profile_but.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences sharedPreferences = getSharedPreferences("AunthPref", Context.MODE_PRIVATE);
-                Toast.makeText(MainActivity.this, sharedPreferences.getString("userID", ""), Toast.LENGTH_SHORT).show();
-                //showYourProfile(sharedPreferences.getString("userID", ""));
+                showYourProfile(AuthenticationActivity.sharedPreferences.getString("userID", ""));
             }
         });
 

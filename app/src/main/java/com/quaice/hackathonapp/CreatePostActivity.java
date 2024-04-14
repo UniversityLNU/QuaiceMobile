@@ -61,8 +61,8 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 List<String> bitmapList = new ArrayList<>();
-                bitmapList.add(postService.encodeToBase64(imageBitmap)); bitmapList.add(postService.encodeToBase64(screenshotBitmap));
-                uploadUserPost(getSharedPreferences("AunthPref", Context.MODE_PRIVATE).getString("userID", ""),
+                bitmapList.add(postService.encodeToBase64(compressBitmapByFactor(imageBitmap, 4))); bitmapList.add(postService.encodeToBase64(compressBitmapByFactor(screenshotBitmap, 4)));
+                uploadUserPost(AuthenticationActivity.sharedPreferences.getString("userID", ""),
                         edittext.getText().toString(), bitmapList);
             }
         });
@@ -79,6 +79,17 @@ public class CreatePostActivity extends AppCompatActivity {
         } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
+    }
+
+    public Bitmap compressBitmapByFactor(Bitmap originalBitmap, int factor) {
+        // Calculate the new dimensions
+        int width = originalBitmap.getWidth() / factor;
+        int height = originalBitmap.getHeight() / factor;
+
+        // Create the new bitmap with the adjusted dimensions
+        Bitmap compressedBitmap = Bitmap.createScaledBitmap(originalBitmap, width, height, true);
+
+        return compressedBitmap;
     }
 
     private boolean allPermissionsGranted() {
