@@ -175,6 +175,7 @@
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true">
     <androidx.cardview.widget.CardView
+        android:id="@+id/camera_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:cardBackgroundColor="@color/third_white"

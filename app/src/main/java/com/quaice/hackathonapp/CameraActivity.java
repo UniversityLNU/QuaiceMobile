@@ -47,6 +47,7 @@ public class CameraActivity extends AppCompatActivity {
     private String selectedImage;
     private static final int PERMISSIONS_REQUEST_CODE = 10;
 
+
     private static final String[] PERMISSIONS_REQUIRED = {
             android.Manifest.permission.CAMERA,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,

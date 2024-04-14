@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView fundraisingRecyclerView, postrecyclerView;
 
     //menu_selector
-    private CardView fund_but, posts_but, profile_but;
+    private CardView fund_but, posts_but, profile_but, camera_but;
 
     private TextInputEditText search;
 
@@ -167,6 +167,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init_menu_selector();
+
+        camera_but = findViewById(R.id.camera_button);
+        camera_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, CreatePostActivity.class));
+            }
+        });
 
         fundLayout = findViewById(R.id.foundation_layout);
         postLayot = findViewById(R.id.main_layout);
