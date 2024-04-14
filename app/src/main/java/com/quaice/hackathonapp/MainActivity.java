@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         textClothes.setOnClickListener(listener);
         textEquipment.setOnClickListener(listener);
         textArmy.setOnClickListener(listener);
-        scheduleAlarms();
+        //scheduleAlarms();
     }
 
     // filterFundraisings
