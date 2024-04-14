@@ -1,26 +1,26 @@
 package com.quaice.hackathonapp.dto.Shop;
 
 public class ShopItemResponse {
-    private String shopItemId;
+    private String itemId;
     private String title;
     private Double price;
     private String description;
     private String itemImage;
 
    public ShopItemResponse(String shopItemId, String title, Double price, String description, String itemImage) {
-            this.shopItemId = shopItemId;
+            this.itemId = shopItemId;
             this.title = title;
             this.price = price;
             this.description = description;
             this.itemImage = itemImage;
         }
 
-    public String getShopItemId() {
-        return shopItemId;
+    public String getItemId() {
+        return itemId;
     }
 
-    public void setShopItemId(String shopItemId) {
-        this.shopItemId = shopItemId;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     public String getTitle() {
