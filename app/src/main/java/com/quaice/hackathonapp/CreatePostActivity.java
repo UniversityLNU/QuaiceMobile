@@ -19,20 +19,27 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class CreatePostActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSIONS = 101;
     private static final int REQUEST_IMAGE_CAPTURE = 102;
     private static final String[] REQUIRED_PERMISSIONS = {Manifest.permission.CAMERA};
 
-    private ImageView imageView;
+    private static final int REQUEST_SELECT_IMAGE = 100;
+
+    private Bitmap imageBitmap, screenshotBitmap;
+    private ImageView imageView, screenShotImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
+        setContentView(R.layout.activity_create_post);
 
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.big_img);
+        screenShotImage = findViewById(R.id.screenShotImage);
+
+        screenShotImage.setOnClickListener(v -> openGallery());
 
         if (allPermissionsGranted()) {
             openCamera();
@@ -79,12 +86,36 @@ public class CreatePostActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             if (extras != null) {
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                imageBitmap = (Bitmap) extras.get("data");
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 imageView.setImageBitmap(imageBitmap);
             }
-        } else {
-            Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show();
-            finish();
         }
+
+        if (requestCode == REQUEST_SELECT_IMAGE && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri selectedImageUri = data.getData();
+                try {
+                    screenshotBitmap = getBitmapFromUri(selectedImageUri);
+                    screenShotImage.setImageBitmap(screenshotBitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+        InputStream inputStream = getContentResolver().openInputStream(uri);
+        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+        inputStream.close();
+        return bitmap;
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQUEST_SELECT_IMAGE);
     }
 }
