@@ -184,7 +184,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         editor = sharedPreferences.edit();
         if(!sharedPreferences.getString("userID", "").equals("")){
-            startActivity(new Intent(AuthenticationActivity.this, CameraActivity.class));
+            startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
         }
     }
 }
