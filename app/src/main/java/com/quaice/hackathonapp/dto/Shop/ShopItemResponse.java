@@ -5,13 +5,15 @@ public class ShopItemResponse {
     private String title;
     private Double price;
     private String description;
+    private String itemImage;
 
-    public ShopItemResponse(String shopItemId, String title, Double price, String description) {
-        this.shopItemId = shopItemId;
-        this.title = title;
-        this.price = price;
-        this.description = description;
-    }
+   public ShopItemResponse(String shopItemId, String title, Double price, String description, String itemImage) {
+            this.shopItemId = shopItemId;
+            this.title = title;
+            this.price = price;
+            this.description = description;
+            this.itemImage = itemImage;
+        }
 
     public String getShopItemId() {
         return shopItemId;
@@ -43,5 +45,13 @@ public class ShopItemResponse {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getItemImage() {
+        return itemImage;
+    }
+
+    public void setItemImage(String itemImage) {
+        this.itemImage = itemImage;
     }
 }
