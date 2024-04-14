@@ -371,11 +371,12 @@
             android:textSize="20dp"
             android:layout_below="@+id/stat_lay"
             android:layout_marginTop="45dp"/>
-        
+
         <androidx.cardview.widget.CardView
             android:layout_width="140dp"
             android:layout_height="40dp"
             app:cardCornerRadius="25dp"
+            android:id="@+id/prop_button"
             android:layout_below="@id/prop_title"
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true">
@@ -390,7 +391,27 @@
                 android:textSize="20dp"/>
         </androidx.cardview.widget.CardView>
 
+        <!--    logout button-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            app:cardCornerRadius="25dp"
+            android:layout_below="@id/prop_button"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
 
+            >
+            <TextView
+                android:id="@+id/logout_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_gradient"
+                android:text="Logout"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="20dp"/>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView

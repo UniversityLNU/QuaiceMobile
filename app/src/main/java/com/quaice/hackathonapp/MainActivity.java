@@ -17,6 +17,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -184,7 +185,16 @@ public class MainActivity extends AppCompatActivity {
         fundraisingRecyclerView = findViewById(R.id.fundraisingRecycler);
         postrecyclerView = findViewById(R.id.main_recycler);
         profileLayout = findViewById(R.id.your_profile_layout);
-
+        TextView logout = findViewById(R.id.logout_button);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = AuthenticationActivity.sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+                startActivity(new Intent(MainActivity.this, AuthenticationActivity.class));
+            }
+        });
         showFundraising();
 
         search = findViewById(R.id.search);
