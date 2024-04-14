@@ -42,6 +42,7 @@ public class FundraisingService {
     // filter by title and FundraisingType, user already existed getAllFundraisings call and then filter
     public void getFundraisingsByTitleAndType(AllFundraisingResponse allFundraisingResponse, String title, String fundraisingType, Callback<AllFundraisingResponse> callback) {
         AllFundraisingResponse filteredResponse = new AllFundraisingResponse(new LinkedList<>());
+        
         for (FundraisingResponse fundraisingResponse : allFundraisingResponse.getFundraisingList()) {
             if (fundraisingResponse.getTitle().contains(title) && (fundraisingType.equals("All") || fundraisingResponse.getFundraisingType().equals(fundraisingType)) ) {
                 filteredResponse.getFundraisingList().add(fundraisingResponse);
