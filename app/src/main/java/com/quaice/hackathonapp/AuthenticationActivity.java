@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.quaice.hackathonapp.dto.Auth.LoginResponse;
 import com.quaice.hackathonapp.dto.Auth.SignUpResponse;
 import com.quaice.hackathonapp.service.AuthService;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -181,7 +184,7 @@ public class AuthenticationActivity extends AppCompatActivity {
 
         editor = sharedPreferences.edit();
         if(!sharedPreferences.getString("userID", "").equals("")){
-            startActivity(new Intent(AuthenticationActivity.this, GalleryActivity.class));
+            startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
         }
     }
 }

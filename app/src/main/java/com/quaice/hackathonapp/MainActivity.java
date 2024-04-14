@@ -5,12 +5,15 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -24,6 +27,8 @@ import com.quaice.hackathonapp.service.AuthService;
 import com.quaice.hackathonapp.service.FundraisingService;
 import com.quaice.hackathonapp.service.PostService;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,19 +40,30 @@ public class MainActivity extends AppCompatActivity {
     private PostService postService;
     private AuthService authService;
     //fundraising
-    private RelativeLayout fundLayout, postLayot;
+    private RelativeLayout fundLayout, postLayot, profileLayout;
     private RecyclerView fundraisingRecyclerView, postrecyclerView;
 
     //menu_selector
-    private CardView fund_but, posts_but;
+    private CardView fund_but, posts_but, profile_but;
 
     private TextInputEditText search;
 
     private AllFundraisingResponse allFundraisingResponse;
 
+    private void init_your_profile(UserInfoResponse user){
+        postLayot.setVisibility(View.GONE);
+        profileLayout.setVisibility(View.VISIBLE);
+        fundLayout.setVisibility(View.GONE);
+        TextView nickname = findViewById(R.id.your_nickname);
+        TextView count = findViewById(R.id.count_of_your_coins);
+        nickname.setText(user.getFullName());
+        count.setText(user.getNumberOfDonatsCoins().toString());
+    }
+
     private void init_menu_selector(){
         fund_but = findViewById(R.id.toolbar_fund);
         posts_but = findViewById(R.id.toolbar_posts);
+        profile_but = findViewById(R.id.toolbar_profile);
 
         fund_but.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +78,17 @@ public class MainActivity extends AppCompatActivity {
                 showPosts();
             }
         });
+
+        profile_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences("AunthPref", Context.MODE_PRIVATE);
+                Toast.makeText(MainActivity.this, sharedPreferences.getString("userID", ""), Toast.LENGTH_SHORT).show();
+                //showYourProfile(sharedPreferences.getString("userID", ""));
+            }
+        });
+
+
     }
 
 
@@ -69,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showFundraising(){
         postLayot.setVisibility(View.GONE);
+        profileLayout.setVisibility(View.GONE);
         fundLayout.setVisibility(View.VISIBLE);
         fundraisingService = new FundraisingService(this);
         postService = new PostService(this);
@@ -102,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
         postLayot.setVisibility(View.VISIBLE);
         fundLayout.setVisibility(View.GONE);
+        profileLayout.setVisibility(View.GONE);
 
         postService = new PostService(this);
         postService.getAllPosts(new Callback<AllPostResponse>() {
@@ -138,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
         postLayot = findViewById(R.id.main_layout);
         fundraisingRecyclerView = findViewById(R.id.fundraisingRecycler);
         postrecyclerView = findViewById(R.id.main_recycler);
+        profileLayout = findViewById(R.id.your_profile_layout);
 
         showFundraising();
 
@@ -195,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     UserInfoResponse userInfoResponse = response.body();
                     if (userInfoResponse != null) {
-                        // Do something with the user info
+                        init_your_profile(userInfoResponse);
                     }
                 } else {
                     Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
