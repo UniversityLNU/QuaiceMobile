@@ -5,11 +5,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -250,31 +252,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @SuppressLint("ScheduleExactAlarm")
     public void scheduleAlarms() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
+        // Set the alarm to start immediately and repeat every 10 seconds
+        long triggerAtMillis = System.currentTimeMillis();
+        long intervalMillis = 5 * 100; // 10 seconds
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, alarmIntent);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, alarmIntent);
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, triggerAtMillis, alarmIntent);
+        }
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerAtMillis, intervalMillis, alarmIntent);
+
+
+
         // Set the alarm to start at specific times (e.g., 8:00 a.m., 1:00 p.m., and 6:00 p.m.)
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.setTimeInMillis(System.currentTimeMillis());
-        calendar1.set(Calendar.HOUR_OF_DAY, 5);
-
-        Calendar calendar2 = Calendar.getInstance();
-        calendar2.setTimeInMillis(System.currentTimeMillis());
-        calendar2.set(Calendar.HOUR_OF_DAY, 13);
-
-        Calendar calendar3 = Calendar.getInstance();
-        calendar3.setTimeInMillis(System.currentTimeMillis());
-        calendar3.set(Calendar.HOUR_OF_DAY, 18);
-
-        // Set the alarms
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, alarmIntent);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, alarmIntent);
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, alarmIntent);
+//        Calendar calendar1 = Calendar.getInstance();
+//        calendar1.setTimeInMillis(System.currentTimeMillis()+1000);
+//        calendar1.set(Calendar.HOUR_OF_DAY, 5);
+//
+//        Calendar calendar2 = Calendar.getInstance();
+//        calendar2.setTimeInMillis(System.currentTimeMillis());
+//        calendar2.set(Calendar.HOUR_OF_DAY, 13);
+//
+//        Calendar calendar3 = Calendar.getInstance();
+//        calendar3.setTimeInMillis(System.currentTimeMillis());
+//        calendar3.set(Calendar.HOUR_OF_DAY, 18);
+//
+//        // Set the alarms
+//        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(),
+//                AlarmManager.INTERVAL_DAY, alarmIntent);
+//        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(),
+//                AlarmManager.INTERVAL_DAY, alarmIntent);
+//        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(),
+//                AlarmManager.INTERVAL_DAY, alarmIntent);
     }
     // getUserInfo
     public void showYourProfile(String userId){

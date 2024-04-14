@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface PostApi {
-    @POST("api/Post")
+    @POST("api/Post/UploadUserPost")
     Call<CreatePostResponse> uploadUserPost(@Body CreatePostRequest post);
 
     @GET("api/Post/GetPostById/{postId}")
