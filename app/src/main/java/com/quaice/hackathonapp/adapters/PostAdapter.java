@@ -49,6 +49,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.creator_nickname.setText(item.getCreatorFullName());
         holder.post_desc.setText(item.getDescription());
 
+
+        holder.big_img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        holder.small_img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.big_img.setImageBitmap(postService.decodeBase64(item.getPhotoLinks().get(0)));
         holder.small_img.setImageBitmap(postService.decodeBase64(item.getPhotoLinks().get(1)));
         // Set item views based on your views and data model
