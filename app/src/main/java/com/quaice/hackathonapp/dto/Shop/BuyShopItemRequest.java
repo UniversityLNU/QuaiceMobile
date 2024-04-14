@@ -1,20 +1,20 @@
 package com.quaice.hackathonapp.dto.Shop;
 
 public class BuyShopItemRequest {
-    private String shopItemId;
+    private String itemId;
     private String userId;
 
     public BuyShopItemRequest(String shopItemId, String userId) {
-        this.shopItemId = shopItemId;
+        this.itemId = shopItemId;
         this.userId = userId;
     }
 
-    public String getShopItemId() {
-        return shopItemId;
+    public String getItemId() {
+        return itemId;
     }
 
-    public void setShopItemId(String shopItemId) {
-        this.shopItemId = shopItemId;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
     public String getUserId() {
