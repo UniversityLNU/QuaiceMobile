@@ -60,6 +60,7 @@ public class CreatePostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
 
+        postService = new PostService(this);
         edittext = findViewById(R.id.editText);
         publish = findViewById(R.id.publish);
         authService = new AuthService(this);
@@ -72,7 +73,8 @@ public class CreatePostActivity extends AppCompatActivity {
                 List<String> bitmapList = new ArrayList<>();
                 String userId= AuthenticationActivity.sharedPreferences.getString("userID", "");
                 showYourProfile(userId);
-                bitmapList.add(postService.encodeToBase64(compressBitmapByFactor(imageBitmap, 4))); bitmapList.add(postService.encodeToBase64(compressBitmapByFactor(screenshotBitmap, 4)));
+                bitmapList.add(postService.encodeToBase64(compressBitmapByFactor(imageBitmap, 2)));
+                bitmapList.add(postService.encodeToBase64(compressBitmapByFactor(screenshotBitmap, 6)));
                 uploadUserPost(userId, userInfoResponse.getFullName(),
                         edittext.getText().toString(), bitmapList);
             }
@@ -117,7 +119,7 @@ public class CreatePostActivity extends AppCompatActivity {
             public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
                 if (response.isSuccessful()) {
                     UserInfoResponse userInfoResponseM = response.body();
-                    if (userInfoResponse != null) {
+                    if (userInfoResponseM != null) {
                         userInfoResponse = userInfoResponseM;
                     }
                 } else {

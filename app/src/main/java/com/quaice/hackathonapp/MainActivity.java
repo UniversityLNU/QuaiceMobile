@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         // round to int
         int countM = (int) Math.round(user.getNumberOfDonatsCoins());
-        count.setText(countM+"");
+        count.setText("" + countM);
     }
 
     private void init_menu_selector(){
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         postLayot.setVisibility(View.GONE);
         profileLayout.setVisibility(View.GONE);
         fundLayout.setVisibility(View.VISIBLE);
-        fundraisingService = new FundraisingService(this);
+
         postService = new PostService(this);
         authService = new AuthService(this);
         //getAllfund
@@ -170,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fundraisingService = new FundraisingService(this);
+
         init_menu_selector();
 
         camera_but = findViewById(R.id.camera_button);
@@ -216,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String newText = s.toString();
+
                 filterFundraisings(allFundraisingResponse, newText, "All");
             }
 
