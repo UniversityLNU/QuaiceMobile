@@ -43,8 +43,8 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     private boolean is_loggin = false;
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    public static SharedPreferences sharedPreferences;
+    public static SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

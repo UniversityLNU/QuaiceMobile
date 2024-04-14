@@ -9,15 +9,15 @@ public class PostResponse {
     private Long dateOfCreation;
     private String fundraisingId;
 
-    private List<String> photoLinks;
+    private List<String> attachedPhotos;
 
-    public PostResponse(String postId, String CreatorFullName, String description, Long dateOfCreation, String fundraisingId, List<String> photoLinks) {
+    public PostResponse(String postId, String CreatorFullName, String description, Long dateOfCreation, String fundraisingId, List<String> attachedPhotos) {
         this.postId = postId;
         this.CreatorFullName = CreatorFullName;
         this.description = description;
         this.dateOfCreation = dateOfCreation;
         this.fundraisingId = fundraisingId;
-        this.photoLinks = photoLinks;
+        this.attachedPhotos = attachedPhotos;
     }
 
     public String getPostId() {
@@ -61,10 +61,10 @@ public class PostResponse {
     }
 
     public List<String> getPhotoLinks() {
-        return photoLinks;
+        return attachedPhotos;
     }
 
-    public void setPhotoLinks(List<String> photoLinks) {
-        this.photoLinks = photoLinks;
+    public void setPhotoLinks(List<String> attachedPhotos) {
+        this.attachedPhotos = attachedPhotos;
     }
 }
