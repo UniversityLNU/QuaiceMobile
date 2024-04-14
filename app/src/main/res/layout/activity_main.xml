@@ -160,7 +160,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/search_card"
-            android:paddingTop="70dp"/>
+            android:paddingTop="70dp"
+            android:paddingBottom="70dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -257,7 +258,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/line_container"
-            android:paddingTop="20dp"/>
+            android:paddingTop="20dp"
+            android:paddingBottom="70dp"/>
 
 
 
