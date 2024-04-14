@@ -201,12 +201,14 @@
         android:layout_marginRight="40dp"/>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/shop_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:cardBackgroundColor="@color/third_white"
         app:cardCornerRadius="20dp"
         android:layout_gravity="center">
         <ImageView
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/cart"

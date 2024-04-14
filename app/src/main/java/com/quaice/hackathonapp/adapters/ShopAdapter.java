@@ -49,7 +49,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
             holder.title.setText(item.getTitle());
             holder.description.setText(item.getDescription());
             holder.price.setText(item.getPrice().toString());
-            holder.image.setImageURI(new Uri(item.ge));
+            holder.image.setImageURI(Uri.parse(item.getItemImage()));
+
             // Set item views based on your views and data model
             //holder.textView.setText(item);
         }

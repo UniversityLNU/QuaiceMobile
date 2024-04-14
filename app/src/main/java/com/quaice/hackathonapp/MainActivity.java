@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView fundraisingRecyclerView, postrecyclerView;
 
     //menu_selector
-    private CardView fund_but, posts_but, profile_but, camera_but;
+    private CardView fund_but, posts_but, profile_but, camera_but, shop_button;
 
     private TextInputEditText search;
 
@@ -176,6 +176,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, CreatePostActivity.class));
+            }
+        });
+
+        shop_button = findViewById(R.id.shop_button);
+
+        shop_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ShopListActivity.class));
             }
         });
 

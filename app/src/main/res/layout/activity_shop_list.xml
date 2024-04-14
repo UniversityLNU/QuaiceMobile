@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShopListActivity"
+    android:background="@color/background_color">
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="16dp"
+        android:id="@+id/back"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardBackgroundColor="@android:color/transparent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/back_arrow"
+                android:layout_marginRight="5dp"/>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Shop"
+        android:fontFamily="@font/rychard"
+        android:textSize="40dp"
+        android:gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:id="@+id/profile_text"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shop_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="120dp"/>
+
+</RelativeLayout>
