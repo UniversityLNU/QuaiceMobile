@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -19,8 +20,11 @@ import com.quaice.hackathonapp.adapters.PostAdapter;
 import com.quaice.hackathonapp.dto.Fundraising.AllFundraisingResponse;
 import com.quaice.hackathonapp.dto.Fundraising.FundraisingResponse;
 import com.quaice.hackathonapp.dto.Post.AllPostResponse;
+import com.quaice.hackathonapp.dto.User.UserInfoResponse;
 import com.quaice.hackathonapp.service.FundraisingService;
 import com.quaice.hackathonapp.service.PostService;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -32,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private FundraisingService fundraisingService;
     private PostService postService;
     //fundraising
-    private RelativeLayout fundLayout, postLayot;
+    private RelativeLayout fundLayout, postLayot, profileLayout;
     private RecyclerView fundraisingRecyclerView, postrecyclerView;
 
     //menu_selector
@@ -41,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
     private TextInputEditText search;
 
     private AllFundraisingResponse allFundraisingResponse;
+
+    private void init_your_profile(UserInfoResponse user){
+        TextView nickname = findViewById(R.id.your_nickname);
+        TextView count = findViewById(R.id.count_of_your_coins);
+        nickname.setText(user.getFullName());
+        count.setText(user.getNumberOfDonatsCoins().toString());
+    }
 
     private void init_menu_selector(){
         fund_but = findViewById(R.id.toolbar_fund);
@@ -66,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showFundraising(){
         postLayot.setVisibility(View.GONE);
+        profileLayout.setVisibility(View.GONE);
         fundLayout.setVisibility(View.VISIBLE);
         fundraisingService = new FundraisingService(this);
         postService = new PostService(this);
@@ -98,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
         postLayot.setVisibility(View.VISIBLE);
         fundLayout.setVisibility(View.GONE);
+        profileLayout.setVisibility(View.GONE);
 
         postService = new PostService(this);
         postService.getAllPosts(new Callback<AllPostResponse>() {
@@ -134,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         postLayot = findViewById(R.id.main_layout);
         fundraisingRecyclerView = findViewById(R.id.fundraisingRecycler);
         postrecyclerView = findViewById(R.id.main_recycler);
+        profileLayout = findViewById(R.id.your_profile_layout);
 
         showFundraising();
 

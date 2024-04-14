@@ -243,6 +243,7 @@
     </RelativeLayout>
     
     <RelativeLayout
+        android:id="@+id/your_profile_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
@@ -319,6 +320,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/count_of_your_coins"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="1234"
@@ -406,6 +408,13 @@
                     android:layout_height="45dp"
                     android:layout_gravity="center"
                     app:cardBackgroundColor="@android:color/holo_red_dark"
+                    app:cardCornerRadius="25dp"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/toolbar_profile"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="center"
+                    app:cardBackgroundColor="@android:color/holo_green_dark"
                     app:cardCornerRadius="25dp"/>
             </LinearLayout>
         </RelativeLayout>
