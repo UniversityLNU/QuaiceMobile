@@ -72,10 +72,9 @@ public class CreatePostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 List<String> bitmapList = new ArrayList<>();
                 String userId= AuthenticationActivity.sharedPreferences.getString("userID", "");
-                showYourProfile(userId);
                 bitmapList.add(postService.encodeToBase64(compressBitmapByFactor(imageBitmap, 2)));
                 bitmapList.add(postService.encodeToBase64(compressBitmapByFactor(screenshotBitmap, 6)));
-                uploadUserPost(userId, userInfoResponse.getFullName(),
+                uploadUserPost(userId, "Bob the Creator",
                         edittext.getText().toString(), bitmapList);
             }
         });

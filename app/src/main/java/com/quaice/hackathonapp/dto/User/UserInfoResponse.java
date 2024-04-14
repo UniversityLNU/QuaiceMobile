@@ -2,23 +2,23 @@ package com.quaice.hackathonapp.dto.User;
 
 public class UserInfoResponse {
     private String userId;
-    private String FullName;
+    private String fullName;
     private String email;
     private String phoneNumber;
     private Double numberOfDonatsCoins;
     private Long LastDonateTime;
-    private Double DailyMultiplier;
-    private Double OverallMultiplier;
+    private Double dailyMultiplier;
+    private Double overallMultiplier;
 
     public UserInfoResponse(String userId, String fullName, String email, String phoneNumber, Double numberOfDonatsCoins, Long lastDonateTime, Double dailyMultiplier, Double overallMultiplier) {
         this.userId = userId;
-        FullName = fullName;
+        this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.numberOfDonatsCoins = numberOfDonatsCoins;
-        LastDonateTime = lastDonateTime;
-        DailyMultiplier = dailyMultiplier;
-        OverallMultiplier = overallMultiplier;
+        this.LastDonateTime = lastDonateTime;
+        this.dailyMultiplier = dailyMultiplier;
+        this.overallMultiplier = overallMultiplier;
     }
 
     public String getUserId() {
@@ -30,11 +30,11 @@ public class UserInfoResponse {
     }
 
     public String getFullName() {
-        return FullName;
+        return fullName;
     }
 
     public void setFullName(String fullName) {
-        FullName = fullName;
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -66,22 +66,22 @@ public class UserInfoResponse {
     }
 
     public void setLastDonateTime(Long lastDonateTime) {
-        LastDonateTime = lastDonateTime;
+        this.LastDonateTime = lastDonateTime;
     }
 
     public Double getDailyMultiplier() {
-        return DailyMultiplier;
+        return dailyMultiplier;
     }
 
     public void setDailyMultiplier(Double dailyMultiplier) {
-        DailyMultiplier = dailyMultiplier;
+        this.dailyMultiplier = dailyMultiplier;
     }
 
     public Double getOverallMultiplier() {
-        return OverallMultiplier;
+        return overallMultiplier;
     }
 
     public void setOverallMultiplier(Double overallMultiplier) {
-        OverallMultiplier = overallMultiplier;
+        this.overallMultiplier = overallMultiplier;
     }
 }
