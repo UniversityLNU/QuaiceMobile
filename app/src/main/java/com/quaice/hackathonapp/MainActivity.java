@@ -64,7 +64,10 @@ public class MainActivity extends AppCompatActivity {
         TextView nickname = findViewById(R.id.your_nickname);
         TextView count = findViewById(R.id.count_of_your_coins);
         nickname.setText(user.getFullName());
-        count.setText(user.getNumberOfDonatsCoins().toString());
+
+        // round to int
+        int countM = (int) Math.round(user.getNumberOfDonatsCoins());
+        count.setText(countM+"");
     }
 
     private void init_menu_selector(){
