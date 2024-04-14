@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.quaice.hackathonapp.dto.ServerResponse;
 import com.quaice.hackathonapp.dto.Shop.AllShopItemResponse;
 import com.quaice.hackathonapp.dto.Shop.BuyShopItemRequest;
+import com.quaice.hackathonapp.service.AuthService;
 import com.quaice.hackathonapp.service.ShopService;
 
 import retrofit2.Call;
@@ -20,6 +21,7 @@ import retrofit2.Response;
 
 public class Shop extends AppCompatActivity {
     private ShopService shopService;
+    private AuthService authService;
     private RecyclerView shopRecyclerView;
 
     @Override

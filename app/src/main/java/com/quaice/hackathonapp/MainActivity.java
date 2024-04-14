@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 SharedPreferences sharedPreferences = getSharedPreferences("AunthPref", Context.MODE_PRIVATE);
                 Toast.makeText(MainActivity.this, sharedPreferences.getString("userID", ""), Toast.LENGTH_SHORT).show();
-                //showYourProfile(sharedPreferences.getString("userID", ""));
+                showYourProfile(sharedPreferences.getString("userID", ""));
             }
         });
 
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the alarm to start immediately and repeat every 10 seconds
         long triggerAtMillis = System.currentTimeMillis();
-        long intervalMillis = 5 * 10; // 10 seconds
+        long intervalMillis = 5 * 1000; // 10 seconds
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, alarmIntent);
