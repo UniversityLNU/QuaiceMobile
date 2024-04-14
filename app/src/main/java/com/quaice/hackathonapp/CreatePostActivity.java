@@ -1,6 +1,7 @@
 package com.quaice.hackathonapp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,11 +17,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.quaice.hackathonapp.dto.Post.CreatePostResponse;
+import com.quaice.hackathonapp.service.PostService;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CreatePostActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSIONS = 101;
@@ -31,10 +44,30 @@ public class CreatePostActivity extends AppCompatActivity {
     private Bitmap imageBitmap, screenshotBitmap;
     private ImageView imageView, screenShotImage;
 
+    private CardView publish;
+    private TextInputEditText edittext;
+
+    private PostService postService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
+
+        edittext = findViewById(R.id.editText);
+        publish = findViewById(R.id.publish);
+
+        publish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                List<String> bitmapList = new ArrayList<>();
+                bitmapList.add(postService.encodeToBase64(imageBitmap)); bitmapList.add(postService.encodeToBase64(screenshotBitmap));
+                uploadUserPost(getSharedPreferences("AunthPref", Context.MODE_PRIVATE).getString("userID", ""),
+                        edittext.getText().toString(), bitmapList);
+            }
+        });
+
+        postService = new PostService(this);
 
         imageView = findViewById(R.id.big_img);
         screenShotImage = findViewById(R.id.screenShotImage);
@@ -117,5 +150,29 @@ public class CreatePostActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         startActivityForResult(intent, REQUEST_SELECT_IMAGE);
+    }
+
+    public void uploadUserPost(String userId, String description, List<String> attachedPhotos){
+        postService.uploadUserPost(userId, description, attachedPhotos, new Callback<CreatePostResponse>() {
+            @Override
+            public void onResponse(Call<CreatePostResponse> call, Response<CreatePostResponse> response) {
+                if (response.isSuccessful()) {
+                    CreatePostResponse createPostResponse = response.body();
+                    if (createPostResponse != null) {
+                        // Handle successful post upload here
+                        Toast.makeText(CreatePostActivity.this, "Post successfully published", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                } else {
+                    //Toast.makeText(Cre.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CreatePostResponse> call, Throwable t) {
+                //Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                //Log.d("Error", t.getMessage());
+            }
+        });
     }
 }

@@ -319,25 +319,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // use uploadUserPost
-    public void uploadUserPost(String userId, String description, List<String> attachedPhotos){
-        postService.uploadUserPost(userId, description, attachedPhotos, new Callback<CreatePostResponse>() {
-            @Override
-            public void onResponse(Call<CreatePostResponse> call, Response<CreatePostResponse> response) {
-                if (response.isSuccessful()) {
-                    CreatePostResponse createPostResponse = response.body();
-                    if (createPostResponse != null) {
-                        // Handle successful post upload here
-                    }
-                } else {
-                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<CreatePostResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("Error", t.getMessage());
-            }
-        });
-    }
 }
