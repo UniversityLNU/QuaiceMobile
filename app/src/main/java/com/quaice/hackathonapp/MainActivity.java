@@ -297,32 +297,46 @@ public class MainActivity extends AppCompatActivity {
             temp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for (RelativeLayout temper: arrayWithLayout){
-                        for (int i = 0; i < temper.getChildCount(); i++) {
-                            View childView = temper.getChildAt(i);
-                            TextView textView = null;
-                            ImageView imageView = null;
-                            if (childView instanceof TextView) {
-                                textView = (TextView) childView;
-                            } else if (childView instanceof ImageView) {
-                                imageView = (ImageView) childView;
-                            }
-                            textView.setTextColor(darkerGrayColor);
-                            imageView.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                    for (int i = 0; i < temp.getChildCount(); i++) {
+
+                    for (int i = 0; i < temp.getChildCount(); i++){
                         View childView = temp.getChildAt(i);
-                        TextView textView = null;
-                        ImageView imageView = null;
-                        if (childView instanceof TextView) {
-                            textView = (TextView) childView;
-                        } else if (childView instanceof ImageView) {
-                            imageView = (ImageView) childView;
-                        }
-                        textView.setTextColor(Color.WHITE);
-                        imageView.setVisibility(View.VISIBLE);
+                        try {
+                            TextView textView = (TextView) childView;
+                            textView.setTextColor(darkerGrayColor);
+                        }catch (Exception e){}
+                        try {
+                            ImageView imageView = (ImageView) childView;
+                            imageView.setVisibility(View.INVISIBLE);
+                        }catch (Exception e){}
                     }
+
+//                    for (View temper: temp) {
+//                        for (int i = 0; i < temper.getChildCount(); i++) {
+//                            View childView = temper.getChildAt(i);
+//                            TextView textView = null;
+//                            ImageView imageView = null;
+//                            if (childView instanceof TextView) {
+//                                textView = (TextView) childView;
+//                            } else if (childView instanceof ImageView) {
+//                                imageView = (ImageView) childView;
+//                            }
+//                            textView.setTextColor(darkerGrayColor);
+//                            imageView.setVisibility(View.INVISIBLE);
+//                        }
+//                    }
+//                    }
+//                    for (int i = 0; i < temp.getChildCount(); i++) {
+//                        View childView = temp.getChildAt(i);
+//                        TextView textView = null;
+//                        ImageView imageView = null;
+//                        if (childView instanceof TextView) {
+//                            textView = (TextView) childView;
+//                        } else if (childView instanceof ImageView) {
+//                            imageView = (ImageView) childView;
+//                        }
+//                        textView.setTextColor(Color.WHITE);
+//                        imageView.setVisibility(View.VISIBLE);
+//                    }
                 }
             });
         }

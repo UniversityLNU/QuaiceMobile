@@ -48,7 +48,8 @@ public class ShopReview extends AppCompatActivity {
             public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
                 if (response.isSuccessful()) {
                     user = response.body();
-                    balance_count.setText("Your Balance: " + user.getNumberOfDonatsCoins());
+                    Integer priceInt = user.getNumberOfDonatsCoins().intValue();
+                    balance_count.setText("Your Balance: " + priceInt);
                 }
             }
 
