@@ -19,6 +19,8 @@ import com.quaice.hackathonapp.adapters.PostAdapter;
 import com.quaice.hackathonapp.dto.Fundraising.AllFundraisingResponse;
 import com.quaice.hackathonapp.dto.Fundraising.FundraisingResponse;
 import com.quaice.hackathonapp.dto.Post.AllPostResponse;
+import com.quaice.hackathonapp.dto.User.UserInfoResponse;
+import com.quaice.hackathonapp.service.AuthService;
 import com.quaice.hackathonapp.service.FundraisingService;
 import com.quaice.hackathonapp.service.PostService;
 
@@ -31,6 +33,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private FundraisingService fundraisingService;
     private PostService postService;
+    private AuthService authService;
     //fundraising
     private RelativeLayout fundLayout, postLayot;
     private RecyclerView fundraisingRecyclerView, postrecyclerView;
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         fundLayout.setVisibility(View.VISIBLE);
         fundraisingService = new FundraisingService(this);
         postService = new PostService(this);
+        authService = new AuthService(this);
         //getAllfund
         fundraisingService.getAllFundraisings(new Callback<AllFundraisingResponse>() {
             @Override
@@ -177,6 +181,29 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AllFundraisingResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("Error", t.getMessage());
+            }
+        });
+    }
+
+    // getUserInfo
+    public void showYourProfile(String userId){
+        authService.getUserInfo(userId, new Callback<UserInfoResponse>() {
+            @Override
+            public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
+                if (response.isSuccessful()) {
+                    UserInfoResponse userInfoResponse = response.body();
+                    if (userInfoResponse != null) {
+                        // Do something with the user info
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserInfoResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("Error", t.getMessage());
             }

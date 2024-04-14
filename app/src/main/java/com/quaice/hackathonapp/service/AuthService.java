@@ -44,8 +44,8 @@ public class AuthService {
         call.enqueue(callback);
     }
 
-    public void getUserInfo(String token, Callback<UserInfoResponse> callback) {
-        UserInfoRequest userInfoRequest = new UserInfoRequest(token);
+    public void getUserInfo(String userId, Callback<UserInfoResponse> callback) {
+        UserInfoRequest userInfoRequest = new UserInfoRequest(userId);
         Call<UserInfoResponse> call = userApi.getUserInfo(userInfoRequest);
         call.enqueue(callback);
     }
