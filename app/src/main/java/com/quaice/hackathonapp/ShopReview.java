@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.quaice.hackathonapp.dto.Shop.ShopItemResponse;
 import com.quaice.hackathonapp.dto.User.UserInfoResponse;
 import com.quaice.hackathonapp.service.AuthService;
 import com.quaice.hackathonapp.service.ShopService;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +26,8 @@ public class ShopReview extends AppCompatActivity {
     private AuthService authService;
     public TextView balance_count, item_name, item_description, buy_price;
     public CardView buy_button, back_button;
+
+    public ImageView image;
     public static ShopItemResponse item;
 
     UserInfoResponse user;
@@ -33,6 +37,9 @@ public class ShopReview extends AppCompatActivity {
         setContentView(R.layout.activity_shop);
         shopService = new ShopService(this);
         authService = new AuthService(this);
+
+        image = findViewById(R.id.image);
+        Picasso.get().load(item.getItemImage()).into(image);
 
         String userId = AuthenticationActivity.sharedPreferences.getString("userID", "");
 

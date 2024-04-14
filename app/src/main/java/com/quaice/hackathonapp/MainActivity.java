@@ -2,6 +2,7 @@ package com.quaice.hackathonapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +20,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +39,7 @@ import com.quaice.hackathonapp.service.PostService;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -170,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initArray();
+
         fundraisingService = new FundraisingService(this);
 
         init_menu_selector();
@@ -275,6 +281,53 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private ArrayList<RelativeLayout> arrayWithLayout;
+
+    private void initArray(){
+        arrayWithLayout = new ArrayList<RelativeLayout>();
+        arrayWithLayout.add(findViewById(R.id.one)); arrayWithLayout.add(findViewById(R.id.two));
+        arrayWithLayout.add(findViewById(R.id.three)); arrayWithLayout.add(findViewById(R.id.four));
+        arrayWithLayout.add(findViewById(R.id.five));
+
+
+        int darkerGrayColor = ContextCompat.getColor(this, android.R.color.darker_gray);
+
+        for (RelativeLayout temp: arrayWithLayout) {
+            temp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    for (RelativeLayout temper: arrayWithLayout){
+                        for (int i = 0; i < temper.getChildCount(); i++) {
+                            View childView = temper.getChildAt(i);
+                            TextView textView = null;
+                            ImageView imageView = null;
+                            if (childView instanceof TextView) {
+                                textView = (TextView) childView;
+                            } else if (childView instanceof ImageView) {
+                                imageView = (ImageView) childView;
+                            }
+                            textView.setTextColor(darkerGrayColor);
+                            imageView.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                    for (int i = 0; i < temp.getChildCount(); i++) {
+                        View childView = temp.getChildAt(i);
+                        TextView textView = null;
+                        ImageView imageView = null;
+                        if (childView instanceof TextView) {
+                            textView = (TextView) childView;
+                        } else if (childView instanceof ImageView) {
+                            imageView = (ImageView) childView;
+                        }
+                        textView.setTextColor(Color.WHITE);
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
+        }
+    }
+
     @SuppressLint("ScheduleExactAlarm")
     public void scheduleAlarms() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

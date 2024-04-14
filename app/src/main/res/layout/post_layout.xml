@@ -65,7 +65,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/button_gradient">
                 <TextView
-                    android:id="@+id/winsteek"
+                    android:id="@+id/date_of_pub"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="2 Days Streak"

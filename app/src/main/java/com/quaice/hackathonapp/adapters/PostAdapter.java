@@ -14,8 +14,11 @@ import com.quaice.hackathonapp.dto.Post.PostRequest;
 import com.quaice.hackathonapp.dto.Post.PostResponse;
 import com.quaice.hackathonapp.service.PostService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
     private List<PostResponse> mData;
@@ -49,6 +52,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         holder.creator_nickname.setText(item.getCreatorFullName());
         holder.post_desc.setText(item.getDescription());
 
+        Date date = new Date(item.getDateOfCreation());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        String formattedDate = sdf.format(date);
+
+        holder.date_of_pub.setText(formattedDate);
 
         holder.big_img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.small_img.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -64,7 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView creator_nickname, post_desc, winsteek;
+        public TextView creator_nickname, post_desc, date_of_pub;
         private ImageView big_img, small_img;
 
 
@@ -72,9 +81,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             super(itemView);
             creator_nickname = itemView.findViewById(R.id.creator_nickname);
             post_desc = itemView.findViewById(R.id.post_desc);
-            winsteek = itemView.findViewById(R.id.winsteek);
             big_img = itemView.findViewById(R.id.big_img);
             small_img = itemView.findViewById(R.id.small_img);
+            date_of_pub = itemView.findViewById(R.id.date_of_pub);
 
         }
     }

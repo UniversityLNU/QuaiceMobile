@@ -17,6 +17,7 @@ import com.quaice.hackathonapp.ShopReview;
 import com.quaice.hackathonapp.dto.Post.PostResponse;
 import com.quaice.hackathonapp.dto.Shop.ShopItemResponse;
 import com.quaice.hackathonapp.service.PostService;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,7 +53,9 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.MyViewHolder> 
             holder.title.setText(item.getTitle());
             holder.description.setText(item.getDescription());
             holder.price.setText(item.getPrice().toString());
-            holder.image.setImageURI(Uri.parse(item.getItemImage()));
+
+
+            Picasso.get().load(item.getItemImage()).fit().centerCrop().into(holder.image);
 
             holder.openReview.setOnClickListener(new View.OnClickListener() {
                 @Override

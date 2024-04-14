@@ -37,12 +37,21 @@
                 android:id="@+id/search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Search for"
+                android:hint="Search"
                 android:background="@color/semi_white"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
                 android:paddingLeft="20dp"/>
         </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fundraisingRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/search_card"
+            android:paddingTop="70dp"
+            android:paddingBottom="70dp"/>
+
         <LinearLayout
             android:id="@+id/menu_selector"
             android:layout_below="@+id/search_card"
@@ -51,6 +60,7 @@
             android:layout_marginLeft="80dp"
             android:layout_centerHorizontal="true">
             <RelativeLayout
+                android:id="@+id/one"
                 android:layout_width="60dp"
                 android:layout_height="match_parent">
                 <TextView
@@ -71,6 +81,7 @@
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/two"
                 android:layout_width="60dp"
                 android:layout_height="match_parent">
                 <TextView
@@ -92,6 +103,7 @@
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/three"
                 android:layout_width="60dp"
                 android:layout_height="match_parent">
                 <TextView
@@ -113,6 +125,7 @@
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/four"
                 android:layout_width="70dp"
                 android:layout_height="match_parent">
                 <TextView
@@ -134,6 +147,7 @@
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/five"
                 android:layout_width="60dp"
                 android:layout_height="match_parent">
                 <TextView
@@ -155,13 +169,6 @@
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fundraisingRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/search_card"
-            android:paddingTop="70dp"
-            android:paddingBottom="70dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -266,6 +273,7 @@
     </RelativeLayout>
     
     <RelativeLayout
+        android:visibility="invisible"
         android:id="@+id/your_profile_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
