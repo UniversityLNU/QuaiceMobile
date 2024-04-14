@@ -5,7 +5,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,6 +25,7 @@ import com.quaice.hackathonapp.adapters.PostAdapter;
 import com.quaice.hackathonapp.dto.Fundraising.AllFundraisingResponse;
 import com.quaice.hackathonapp.dto.Fundraising.FundraisingResponse;
 import com.quaice.hackathonapp.dto.Post.AllPostResponse;
+import com.quaice.hackathonapp.dto.Post.CreatePostResponse;
 import com.quaice.hackathonapp.dto.User.UserInfoResponse;
 import com.quaice.hackathonapp.service.AuthService;
 import com.quaice.hackathonapp.service.FundraisingService;
@@ -29,6 +33,7 @@ import com.quaice.hackathonapp.service.PostService;
 
 import org.w3c.dom.Text;
 
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -189,6 +194,27 @@ public class MainActivity extends AppCompatActivity {
                 // Do something after the text changes (optional)
             }
         });
+        TextView textAll = findViewById(R.id.text_all);
+        TextView textMedical = findViewById(R.id.text_medical);
+        TextView textClothes = findViewById(R.id.text_clothes);
+        TextView textEquipment = findViewById(R.id.text_equipment);
+        TextView textArmy = findViewById(R.id.text_army);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView textView = (TextView) v;
+                String filter = textView.getText().toString();
+                filterFundraisings(allFundraisingResponse, "", filter);
+            }
+        };
+
+        textAll.setOnClickListener(listener);
+        textMedical.setOnClickListener(listener);
+        textClothes.setOnClickListener(listener);
+        textEquipment.setOnClickListener(listener);
+        textArmy.setOnClickListener(listener);
+        scheduleAlarms();
     }
 
     // filterFundraisings
@@ -216,10 +242,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public void scheduleAlarms() {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
+        // Set the alarm to start at specific times (e.g., 8:00 a.m., 1:00 p.m., and 6:00 p.m.)
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTimeInMillis(System.currentTimeMillis());
+        calendar1.set(Calendar.HOUR_OF_DAY, 5);
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTimeInMillis(System.currentTimeMillis());
+        calendar2.set(Calendar.HOUR_OF_DAY, 13);
+
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.setTimeInMillis(System.currentTimeMillis());
+        calendar3.set(Calendar.HOUR_OF_DAY, 18);
+
+        // Set the alarms
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, alarmIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, alarmIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, alarmIntent);
+    }
     // getUserInfo
     public void showYourProfile(String userId){
-        authService.getUserInfo(userId, new Callback<UserInfoResponse>() {
+        authService.getUser(userId, new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
                 if (response.isSuccessful()) {
@@ -234,6 +285,29 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserInfoResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("Error", t.getMessage());
+            }
+        });
+    }
+
+    // use uploadUserPost
+    public void uploadUserPost(String userId, String description, List<String> attachedPhotos){
+        postService.uploadUserPost(userId, description, attachedPhotos, new Callback<CreatePostResponse>() {
+            @Override
+            public void onResponse(Call<CreatePostResponse> call, Response<CreatePostResponse> response) {
+                if (response.isSuccessful()) {
+                    CreatePostResponse createPostResponse = response.body();
+                    if (createPostResponse != null) {
+                        // Handle successful post upload here
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CreatePostResponse> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d("Error", t.getMessage());
             }

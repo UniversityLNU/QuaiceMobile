@@ -8,7 +8,7 @@
     android:background="@color/background_color">
 
     <RelativeLayout
-        android:visibility="invisible"
+        android:visibility="visible"
         android:id="@+id/foundation_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -54,6 +54,8 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/text_all"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="All"
@@ -72,6 +74,8 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/text_medical"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Medical"
@@ -91,6 +95,8 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/text_clothes"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Clothes"
@@ -110,6 +116,8 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/text_equipment"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Equipment"
@@ -129,6 +137,8 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/text_army"
+                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="Army"

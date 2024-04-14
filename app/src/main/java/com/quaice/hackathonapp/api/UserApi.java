@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface UserApi {
     @POST("/api/User/login")
@@ -18,7 +19,8 @@ public interface UserApi {
     @POST("/api/User/register")
     Call<SignUpResponse> registerUser(@Body SignUpRequest signUpRequest);
     //  api/User/info
-    @GET("/api/User/info")
-    Call<UserInfoResponse> getUserInfo(@Body UserInfoRequest userInfoRequest);
+    @GET("/api/User/GetUser/{userId}")
+    Call<UserInfoResponse> getUser(@Path("userId") String userId);
+
 
 }
