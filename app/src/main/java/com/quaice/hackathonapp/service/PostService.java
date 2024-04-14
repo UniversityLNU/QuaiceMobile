@@ -1,6 +1,9 @@
 package com.quaice.hackathonapp.service;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
 import com.quaice.hackathonapp.R;
 import com.quaice.hackathonapp.api.PostApi;
@@ -10,6 +13,7 @@ import com.quaice.hackathonapp.dto.Post.CreatePostResponse;
 import com.quaice.hackathonapp.dto.Post.PostRequest;
 import com.quaice.hackathonapp.dto.Post.PostResponse;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import retrofit2.Call;
@@ -45,5 +49,15 @@ public class PostService {
     public void getAllPosts(Callback<AllPostResponse> callback) {
         Call<AllPostResponse> call = postApi.getAllPosts();
         call.enqueue(callback);
+    }
+    public String encodeToBase64(Bitmap image) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+    public Bitmap decodeBase64(String base64) {
+        byte[] decodedString = Base64.decode(base64, Base64.DEFAULT);
+        return Bitmap.createBitmap(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
     }
 }
